@@ -1,0 +1,137 @@
+// Import Angular Material core functionality
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// 1. Create the Light Theme (Default)
+$ims-light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$blue-palette,
+    tertiary: mat.$cyan-palette,
+  )
+));
+
+// 2. Create the Dark Theme
+$ims-dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$blue-palette,
+    tertiary: mat.$cyan-palette,
+  )
+));
+
+// 3. Apply the Light Theme by default to the root element
+:root {
+  @include mat.all-component-themes($ims-light-theme);
+
+  // This ensures things like `<button color="primary">` still work
+  // exactly the way they used to in older versions of Angular!
+  @include mat.color-variants-backwards-compatibility($ims-light-theme);
+
+  --ims-hairline-border: 1px solid #{mat.get-theme-color($ims-light-theme, outline-variant)};
+}
+
+// 4. When the .dark-theme class is active, swap the colors!
+.dark-theme {
+  @include mat.all-component-colors($ims-dark-theme);
+  @include mat.color-variants-backwards-compatibility($ims-dark-theme);
+  --ims-hairline-border: 1px solid #{mat.get-theme-color($ims-dark-theme, outline-variant)};
+}
+
+/* Standardize Material Tabs to look like Google Workspace */
+.mat-mdc-tab-header {
+  border-bottom: var(--ims-hairline-border);
+  margin-bottom: 24px;
+}
+
+.mat-mdc-tab-labels {
+  /* Aligns the tabs nicely with the content below */
+  padding-left: 8px;
+}
+
+.mdc-tab {
+  letter-spacing: 0.5px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+}
+
+/* Remove the default background from the tab body area */
+.mat-mdc-tab-body-wrapper {
+  background: transparent;
+}
+
+// Ensure the body takes up the full screen
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* ==========================================================================
+   Theme Transitions
+   ========================================================================== */
+body,
+.mat-mdc-sidenav-container,
+.mat-mdc-sidenav-content,
+.mat-mdc-sidenav,
+.mat-mdc-toolbar,
+.mat-mdc-card,
+.mat-mdc-dialog-surface,
+.mat-mdc-menu-panel,
+.mat-mdc-list-item,
+mat-icon {
+  transition: background-color 0.5s ease-in-out,
+  color 0.5s ease-in-out,
+  border-color 0.5s ease-in-out;
+}
+
+/* Ensure the fill color of SVG icons transitions smoothly too */
+mat-icon svg {
+  transition: fill 0.5s ease-in-out;
+}
+
+/* =========================================================
+   GLOBAL SNACKBAR (TOAST) NOTIFICATIONS
+   ========================================================= */
+
+/* Base styling to make the text crisp and modern */
+.mat-mdc-snack-bar-container {
+  .mdc-snackbar__surface {
+    border-radius: 8px !important;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+/* SUCCESS: Green */
+.snackbar-success {
+  --mdc-snackbar-container-color: #2e7d32;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #c8e6c9;
+}
+
+/* ERROR: Red */
+.snackbar-error {
+  --mdc-snackbar-container-color: #d32f2f;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #ffcdd2;
+}
+
+/* WARNING: Orange */
+.snackbar-warning {
+  --mdc-snackbar-container-color: #ed6c02;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #ffe0b2;
+}
+
+/* INFO: Blue */
+.snackbar-info {
+  --mdc-snackbar-container-color: #0288d1;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #b3e5fc;
+}
+

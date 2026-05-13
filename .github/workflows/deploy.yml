@@ -1,0 +1,71 @@
+name: Hybrid Deploy (GH Pages & Cloud Run)
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  # --- JOB 1: Deploy to GitHub Pages (Static / CSR) ---
+  deploy-dev:
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    environment: testing
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build for GH Pages
+        run: npx ng build --configuration production --base-href /musambi-console/
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/musambi-console/browser
+          branch: gh-pages
+
+  # --- JOB 2: Deploy to Google Cloud Run (SSR / Docker) ---
+  deploy-production:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      # Auth via Workload Identity Federation
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: '${{ secrets.GCP_WIP }}'
+          service_account: '${{ secrets.GCP_SA_EMAIL }}'
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Authorize Docker
+        run: gcloud auth configure-docker africa-south1-docker.pkg.dev
+
+      - name: Build and Push Container
+        run: |
+          docker build -t africa-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_REPO }}/ssr-app:${{ github.sha }} .
+          docker push africa-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_REPO }}/ssr-app:${{ github.sha }}
+
+      - name: Deploy to Cloud Run
+        uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          service: 'angular-ssr-service'
+          image: 'africa-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_REPO }}/ssr-app:${{ github.sha }}'
+          region: 'africa-south1'

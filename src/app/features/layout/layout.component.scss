@@ -1,0 +1,79 @@
+.feature-container {
+  /* Forces the container to stretch exactly to the edges of the parent layout */
+  position: absolute;
+  height: 93vh;
+  left: 0;
+  right: 0;
+  background: transparent;
+}
+
+.feature-sidenav {
+  width: 240px;
+  background: transparent;
+  border-right: var(--ims-hairline-border) !important;
+  border-radius: 0 !important;
+  transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+
+  &.collapsed {
+    width: 64px;
+  }
+
+  ::ng-deep {
+    .mat-drawer-inner-container {
+      border-right: none !important;
+      overflow: hidden;
+    }
+  }
+}
+
+.sidenav-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.nav-list {
+  flex: 1 1 auto;
+  padding-top: 16px;
+}
+
+.mat-mdc-list-item {
+  border-radius: 0 !important;
+}
+
+/* Style the active link to stand out slightly */
+.active-link {
+  background: rgba(0, 0, 0, 0.04);
+}
+.dark-theme .active-link {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.collapse-toggle {
+  border-top: var(--ims-hairline-border);
+  padding: 8px;
+  display: flex;
+  justify-content: flex-end; /* Align button to the right by default */
+  transition: justify-content 0.3s;
+}
+
+/* Center the button when the sidebar is shrunk */
+.collapsed .collapse-toggle {
+  justify-content: center;
+}
+
+.feature-content {
+  padding: 24px;
+  background: transparent;
+
+  /* Apply the margin DIRECTLY to our specific feature content area */
+  margin-left: 240px !important;
+  transition: margin-left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+/* When the parent container is collapsed, shrink this specific margin */
+.collapsed-layout .feature-content {
+  margin-left: 64px !important;
+}
+

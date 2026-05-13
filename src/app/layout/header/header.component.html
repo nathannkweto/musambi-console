@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" class="top-toolbar" >
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="onToggleSidenav()">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+
+  <span>Musambi</span>
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button (click)="themeService.toggleTheme()" aria-label="Toggle dark theme">
+    <mat-icon>{{ themeService.isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+
+  <button mat-icon-button aria-label="User Profile">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>

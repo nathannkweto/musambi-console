@@ -1,0 +1,22 @@
+.outline-container {
+  /* Uses the dynamic border we set up in styles.scss! */
+  border: var(--ims-hairline-border);
+  border-radius: 5px; /* Slight rounding on the outer wrapper looks great */
+  overflow: hidden;
+  background: var(--mat-sys-surface);
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.empty-cell {
+  text-align: center;
+  padding: 2rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* Removes the top border from the paginator so it blends cleanly with the table */
+mat-paginator {
+  border-top: var(--ims-hairline-border);
+}

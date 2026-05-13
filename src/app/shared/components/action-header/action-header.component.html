@@ -1,0 +1,30 @@
+<div class="header-container">
+
+  <div class="title-section">
+    <h1 class="page-title">{{ title }}</h1>
+    <p class="page-subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+  </div>
+
+  <div class="action-section">
+
+    <mat-form-field
+      appearance="outline"
+      class="search-field"
+      *ngIf="showSearch"
+      subscriptSizing="dynamic">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput [placeholder]="searchPlaceholder" (keyup)="onSearch($event)">
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="action-button"
+      *ngIf="actionText"
+      (click)="actionClick.emit()">
+      <mat-icon *ngIf="actionIcon">{{ actionIcon }}</mat-icon>
+      {{ actionText }}
+    </button>
+
+  </div>
+</div>

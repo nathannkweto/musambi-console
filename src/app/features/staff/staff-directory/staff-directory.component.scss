@@ -1,0 +1,11 @@
+.page-container {
+  /* We rely on the padding established by the FeatureLayoutComponent */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tab-content-wrapper {
+  /* Adds a little breathing room between the tab line and the top of our table cards */
+  padding-top: 8px;
+}

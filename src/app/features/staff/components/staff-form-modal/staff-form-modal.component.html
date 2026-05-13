@@ -1,0 +1,63 @@
+<h2 mat-dialog-title>Add New Staff Member</h2>
+
+<mat-dialog-content class="form-content">
+  <form [formGroup]="staffForm" (ngSubmit)="onSubmit()" class="staff-form">
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="e.g. Jane">
+        <mat-error *ngIf="staffForm.get('firstName')?.hasError('required')">
+          First name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="e.g. Doe">
+        <mat-error *ngIf="staffForm.get('lastName')?.hasError('required')">
+          Last name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+      <mat-label>Email Address</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="jane.doe@campus.edu">
+      <mat-icon matPrefix>mail</mat-icon>
+      <mat-error *ngIf="staffForm.get('email')?.hasError('email')">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Staff Type</mat-label>
+        <mat-select formControlName="staffType">
+          <mat-option value="teaching">Teaching Staff</mat-option>
+          <mat-option value="admin">Administration</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Role / Title</mat-label>
+        <input matInput formControlName="role" placeholder="e.g. Professor, Analyst">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+      <mat-label>Department / Office</mat-label>
+      <input matInput formControlName="department" placeholder="e.g. Computer Science">
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button (click)="onCancel()" type="button">Cancel</button>
+
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="staffForm.invalid">
+    <mat-icon>save</mat-icon>
+    Save Staff
+  </button>
+</mat-dialog-actions>

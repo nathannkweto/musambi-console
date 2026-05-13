@@ -1,0 +1,39 @@
+<mat-sidenav-container
+  class="feature-container"
+  [class.collapsed-layout]="isCollapsed()">
+
+  <mat-sidenav
+    mode="side"
+    opened
+    class="feature-sidenav"
+    [class.collapsed]="isCollapsed()">
+
+    <div class="sidenav-content-wrapper">
+      <mat-nav-list class="nav-list">
+        <a mat-list-item
+           *ngFor="let item of navItems"
+           [routerLink]="item.path"
+           routerLinkActive="active-link"
+           [matTooltip]="isCollapsed() ? item.label : ''"
+           matTooltipPosition="right">
+
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle *ngIf="!isCollapsed()">{{ item.label }}</span>
+        </a>
+      </mat-nav-list>
+
+      <div class="collapse-toggle">
+        <button mat-icon-button (click)="toggleCollapse()" [matTooltip]="isCollapsed() ? 'Expand' : 'Collapse'">
+          <mat-icon>
+            {{ isCollapsed() ? 'keyboard_double_arrow_right' : 'keyboard_double_arrow_left' }}
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="feature-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

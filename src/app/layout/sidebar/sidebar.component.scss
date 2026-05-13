@@ -1,0 +1,32 @@
+.brand-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.brand-text {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.active-link {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--mdc-theme-primary);
+
+  mat-icon {
+    color: var(--mdc-theme-primary);
+  }
+}
+
+.mat-mdc-nav-list {
+  border-top: var(--ims-hairline-border) !important;
+}
+
+.mat-mdc-list-item {
+  border-radius: 0 !important;
+}

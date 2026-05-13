@@ -1,0 +1,39 @@
+<div class="page-container">
+
+  <app-action-header
+    title="Staff Directory"
+    subtitle="Manage campus administration and teaching staff"
+    actionText="Add Staff"
+    [showSearch]="true"
+    searchPlaceholder="Search staff by name or ID..."
+    (actionClick)="handleAddStaff()"
+    (search)="handleSearch($event)">
+  </app-action-header>
+
+  <mat-tab-group animationDuration="0ms" color="primary">
+
+    <mat-tab label="Teaching Staff">
+      <ng-template matTabContent>
+        <div class="tab-content-wrapper">
+          <app-data-table
+            [columns]="teachingColumns"
+            [data]="teachingData">
+          </app-data-table>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab label="Admin Staff">
+      <ng-template matTabContent>
+        <div class="tab-content-wrapper">
+          <app-data-table
+            [columns]="adminColumns"
+            [data]="adminData">
+          </app-data-table>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

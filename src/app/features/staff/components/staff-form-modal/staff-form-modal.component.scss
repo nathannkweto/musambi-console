@@ -1,0 +1,26 @@
+.form-content {
+  /* Give the modal some breathing room */
+  padding-top: 16px !important;
+  padding-bottom: 24px !important;
+}
+
+.staff-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Spacing between rows */
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px; /* Spacing between columns */
+}
+
+.full-width {
+  width: 100%;
+}
+
+.dialog-actions {
+  padding: 16px 24px;
+  border-top: var(--ims-hairline-border);
+}
