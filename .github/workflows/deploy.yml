@@ -45,7 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Auth via Workload Identity Federation
+      # Auth via the Workload Identity Federation
       - id: 'auth'
         uses: 'google-github-actions/auth@v2'
         with:
