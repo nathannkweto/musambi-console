@@ -32,7 +32,7 @@ jobs:
         run: npx ng build --configuration production --base-href /musambi-console/
 
       - name: Copy index.html to 404.html
-        run: cp dist/musambi-console/browser/index.html dist/musambi-console/browser/404.html
+        run: cp dist/musambi-console/browser/index.csr.html dist/musambi-console/browser/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
